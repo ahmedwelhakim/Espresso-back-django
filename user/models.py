@@ -10,9 +10,12 @@ from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+from common.models import BaseModel
+from .models import User
 
-class UserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_field):
+
+class UserManager(BaseUserManager[User]):
+    def create_user(self, email: str, password=None, **extra_field):
         if not email:
             raise ValueError("User must have an email address. ")
         user = self.model(email=email.lower(), **extra_field)
@@ -31,7 +34,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):  # type: ignore
     email = models.EmailField(max_length=255, unique=True)
     full_name = models.CharField(max_length=255)
     phone = PhoneNumberField(null=True, blank=True, unique=True, region="EG")
@@ -47,9 +50,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.full_name
 
 
-class UserAddress(models.Model):
+class UserAddress(BaseModel):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="user_address"
+        User, on_delete=models.CASCADE, related_name="user_address", db_index=True
     )
     name = models.CharField(max_length=255)
     phone = PhoneNumberField(null=True, blank=True, region="EG")
@@ -58,7 +61,7 @@ class UserAddress(models.Model):
     building = models.CharField(max_length=255)
     floor = models.CharField(max_length=255)
     apartment = models.CharField(max_length=255)
-    is_default = models.BooleanField(default=False)
+    is_default = models.BooleanField(default=False, db_index=True)
 
     def __str__(self):
         return f"user: {self.user.full_name}, name: {self.name}"
