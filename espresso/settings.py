@@ -28,16 +28,14 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-LOCAL_APPS = [
-    "user",
-    "common",
-]
+CREATE_APP_LOCATION = "LOCAL_APPS"
+
+LOCAL_APPS = ["user", "common", "api", "product"]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
     "debug_toolbar",
 ]
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",

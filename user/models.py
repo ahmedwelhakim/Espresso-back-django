@@ -7,20 +7,18 @@ from django.contrib.auth.models import (
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-
 from phonenumber_field.modelfields import PhoneNumberField
 
 from common.models import BaseModel
-from .models import User
 
 
-class UserManager(BaseUserManager[User]):
+class UserManager(BaseUserManager):
     def create_user(self, email: str, password=None, **extra_field):
         if not email:
             raise ValueError("User must have an email address. ")
         user = self.model(email=email.lower(), **extra_field)
-        user.is_guest = False
-        user.set_password(password)
+        user.is_guest = False  # type: ignore
+        user.set_password(password)  # type: ignore
         user.save(using=self.db)
 
         return user
