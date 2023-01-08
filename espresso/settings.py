@@ -9,11 +9,14 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+TABBED_ADMIN_USE_JQUERY_UI = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -30,14 +33,15 @@ ALLOWED_HOSTS = ["*"]
 
 CREATE_APP_LOCATION = "LOCAL_APPS"
 
-LOCAL_APPS = ["user", "common", "api", "product"]
+LOCAL_APPS = ["user", "common", "api", "product", ]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "debug_toolbar",
+    'silk',
 ]
 
 INSTALLED_APPS = [
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -56,7 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = "espresso.urls"
@@ -126,6 +130,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -136,7 +145,10 @@ AUTH_USER_MODEL = "user.User"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': (
+        'rest_framework.pagination.PageNumberPagination'),
+    'PAGE_SIZE': 9,
 }
 
 SIMPLE_JWT = {
@@ -172,3 +184,58 @@ INTERNAL_IPS = [
     "localhost"
     # ...
 ]
+
+# Media Files
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+SVG_SIZE = 5
+IMAGE_SIZE = 10
+VIDEO_SIZE = 25
+
+PAGE_SIZE = 4
+
+
+# Jazzmin Settings
+JAZZMIN_SETTINGS = {
+    "show_ui_builder": True,
+    "site_logo": "jazzmin/img/Logo.svg",
+    "login_logo": "jazzmin/img/Logo.svg",
+    "site_title": "Eespresso",
+    "site_header": "Eespresso",
+    "site_brand": "Eespresso",
+    "welcome_sign": "Welcome to Eespresso",
+    "copyright": "AZ Studios",
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-warning",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-warning",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "darkly",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}

@@ -18,7 +18,7 @@ class Command(TemplateCommand):
         try:
             app_name = options.pop("name")
             target = options.pop("directory")
-            print(app_name,target)
+            print(app_name, target)
             super().handle("app", app_name, target, **options)
             self.controller(app_name=app_name)
         except CommandError as e:
