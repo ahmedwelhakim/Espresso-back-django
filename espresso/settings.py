@@ -37,11 +37,11 @@ LOCAL_APPS = ["user", "common", "api", "product", ]
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    'silk',
+    # 'silk',
 ]
 
 INSTALLED_APPS = [
-    "jazzmin",
+    # "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'silk.middleware.SilkyMiddleware',
+    # 'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = "espresso.urls"
@@ -197,45 +197,45 @@ PAGE_SIZE = 4
 
 
 # Jazzmin Settings
-JAZZMIN_SETTINGS = {
-    "show_ui_builder": True,
-    "site_logo": "jazzmin/img/Logo.svg",
-    "login_logo": "jazzmin/img/Logo.svg",
-    "site_title": "Eespresso",
-    "site_header": "Eespresso",
-    "site_brand": "Eespresso",
-    "welcome_sign": "Welcome to Eespresso",
-    "copyright": "AZ Studios",
-}
-
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
-    "brand_colour": False,
-    "accent": "accent-warning",
-    "navbar": "navbar-dark",
-    "no_navbar_border": False,
-    "navbar_fixed": False,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
-    "sidebar": "sidebar-dark-warning",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": False,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
-    "theme": "darkly",
-    "dark_mode_theme": None,
-    "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    }
-}
+# JAZZMIN_SETTINGS = {
+#     "show_ui_builder": True,
+#     "site_logo": "jazzmin/img/Logo.svg",
+#     "login_logo": "jazzmin/img/Logo.svg",
+#     "site_title": "Eespresso",
+#     "site_header": "Eespresso",
+#     "site_brand": "Eespresso",
+#     "welcome_sign": "Welcome to Eespresso",
+#     "copyright": "AZ Studios",
+# }
+#
+# JAZZMIN_UI_TWEAKS = {
+#     "navbar_small_text": False,
+#     "footer_small_text": False,
+#     "body_small_text": False,
+#     "brand_small_text": False,
+#     "brand_colour": False,
+#     "accent": "accent-warning",
+#     "navbar": "navbar-dark",
+#     "no_navbar_border": False,
+#     "navbar_fixed": False,
+#     "layout_boxed": False,
+#     "footer_fixed": False,
+#     "sidebar_fixed": False,
+#     "sidebar": "sidebar-dark-warning",
+#     "sidebar_nav_small_text": False,
+#     "sidebar_disable_expand": False,
+#     "sidebar_nav_child_indent": False,
+#     "sidebar_nav_compact_style": False,
+#     "sidebar_nav_legacy_style": False,
+#     "sidebar_nav_flat_style": False,
+#     "theme": "darkly",
+#     "dark_mode_theme": None,
+#     "button_classes": {
+#         "primary": "btn-primary",
+#         "secondary": "btn-secondary",
+#         "info": "btn-info",
+#         "warning": "btn-warning",
+#         "danger": "btn-danger",
+#         "success": "btn-success"
+#     }
+# }

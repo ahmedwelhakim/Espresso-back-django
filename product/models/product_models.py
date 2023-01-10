@@ -1,7 +1,10 @@
 import functools
 import uuid
 
+from django.contrib import admin
 from django.core.validators import FileExtensionValidator
+from django.db.models import Prefetch
+from django.utils.safestring import mark_safe
 
 from common.models import BaseModel
 from django.db import models
@@ -17,24 +20,32 @@ class Product(BaseModel):
     price = models.FloatField()
     discount_price = models.FloatField()
     description = models.TextField()
-    product_type = models.ForeignKey('ProductType', related_name='product_type', on_delete=models.CASCADE, db_index=True)
-    product_intensity = models.ForeignKey('ProductIntensity', related_name='product_intensity', on_delete=models.CASCADE, db_index=True)
+    product_type = models.ForeignKey('ProductType', on_delete=models.CASCADE,
+                                     db_index=True)
+    product_intensity = models.ForeignKey('ProductIntensity',
+                                          on_delete=models.CASCADE, db_index=True)
 
     def __str__(self):
         return f'{self.name}: {self.price}LE'
 
 
 class ProductType(BaseModel):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4(), editable=False)
     type = models.TextField()
 
+    class Meta:
+        verbose_name_plural = 'Product Types'
+
     def __str__(self):
-        return self.product_type
+        return self.type
 
 
 class ProductIntensity(BaseModel):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4())
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4(), editable=False)
     intensity = models.TextField()
+
+    class Meta:
+        verbose_name_plural = 'Product Intensities'
 
     def __str__(self):
         return self.intensity
@@ -48,12 +59,21 @@ class ProductImage(BaseModel):
                                                         image_validators.extension_error_message)
                              ])
     is_main = models.BooleanField()
-    product = models.ForeignKey('Product', related_name='image_product', on_delete=models.CASCADE, db_index=True)
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, db_index=True)
+
+    class Meta:
+        verbose_name_plural = 'Product Images'
+
+    def __str__(self):
+        return self.image.name
 
 
 class ProductStock(BaseModel):
-    product = models.OneToOneField('Product', related_name='stock_product', on_delete=models.CASCADE, db_index=True)
+    product = models.OneToOneField('Product', on_delete=models.CASCADE, db_index=True)
     quantities = models.IntegerField()
 
+    class Meta:
+        verbose_name_plural = 'Product Stocks'
+
     def __str__(self):
-        return self.quantities
+        return str(self.quantities)
